@@ -84,9 +84,16 @@ export function Hero() {
         <BotanicalArt motif="sprig" className="w-full" strokeWidth={2.5} />
       </Parallax>
 
+      {/*
+        `min-w-0` on both columns is load-bearing, not tidying. Grid items
+        default to `min-width: auto`, so they refuse to shrink below their
+        content — and the showcase track is `w-max`, i.e. far wider than a
+        phone. That blew the single mobile column out to ~978px and took the
+        headline with it, which is why the H1 ran off the screen.
+      */}
       <div className="shell grid items-center gap-12 lg:grid-cols-12 lg:gap-10">
         {/* ---- copy ---- */}
-        <div className="lg:col-span-5">
+        <div className="min-w-0 lg:col-span-5">
           <Eyebrow className="mb-6">F-6 Markaz · Islamabad</Eyebrow>
 
           <SplitHeading
@@ -121,7 +128,7 @@ export function Hero() {
         </div>
 
         {/* ---- draggable showcase ---- */}
-        <div className="lg:col-span-7">
+        <div className="min-w-0 lg:col-span-7">
           <DraggableShowcase label="Dahlia highlights" hint="drag">
             {ITEMS.map((item, i) => (
               <li

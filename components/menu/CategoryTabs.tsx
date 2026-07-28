@@ -56,7 +56,10 @@ export function CategoryTabs({
     >
       <ul
         ref={list}
-        className="shell flex gap-1 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        // Lenis owns document-level touch; without this the tab strip cannot be
+        // swiped on a phone.
+        data-lenis-prevent
+        className="shell flex gap-1 overflow-x-auto overscroll-x-contain py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {categories.map((category) => (
           <li key={category.slug} className="shrink-0">

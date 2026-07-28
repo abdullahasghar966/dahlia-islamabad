@@ -92,7 +92,13 @@ export function NavOverlay({ open, onClose }: { open: boolean; onClose: () => vo
             </button>
           </div>
 
-          <nav aria-label="Mobile" className="shell flex flex-1 flex-col justify-center">
+          <nav
+            aria-label="Mobile"
+            // Scrollable, and exempt from Lenis, so the links stay reachable on
+            // a short screen or in landscape.
+            data-lenis-prevent
+            className="shell flex flex-1 flex-col justify-center overflow-y-auto overscroll-contain"
+          >
             <motion.ul
               className="flex flex-col gap-1"
               initial="hidden"

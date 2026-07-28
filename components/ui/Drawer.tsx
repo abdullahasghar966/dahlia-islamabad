@@ -110,7 +110,18 @@ export function Drawer({
                 <X size={20} aria-hidden />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto overscroll-contain px-6 py-6">{children}</div>
+            {/*
+              `data-lenis-prevent` is load-bearing. Lenis handles wheel and
+              touch at the document level, so without it this panel could not be
+              scrolled by finger at all — the reserve form's submit button was
+              unreachable on a phone unless you grabbed the scrollbar itself.
+            */}
+            <div
+              data-lenis-prevent
+              className="flex-1 overflow-y-auto overscroll-contain px-6 py-6"
+            >
+              {children}
+            </div>
           </motion.div>
         </div>
       )}

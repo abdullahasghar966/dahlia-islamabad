@@ -15,8 +15,18 @@ type SplitHeadingProps = {
 };
 
 /**
- * Line-by-line mask-up reveal (07 §3). SplitText wraps each line in an
- * overflow-hidden parent, then the lines slide out from under it.
+ * Line-by-line mask-up reveal (07 §3).
+ *
+ * `autoSplit` is not optional here. SplitText sets `white-space: nowrap` on
+ * every line it creates, so a split is only correct for the width it was
+ * measured at — split once and the lines can never re-wrap. On a phone that
+ * produced a headline running straight off the screen, clipped by the
+ * `overflow-x: hidden` on body (which is also why a document-level overflow
+ * check reported zero while the text was visibly cut). `autoSplit` re-splits on
+ * font load and width change, which is what keeps it honest across viewports.
+ *
+ * The animation is created inside `onSplit` and returned, so GSAP reverts the
+ * previous one on every re-split rather than leaving orphaned tweens behind.
  */
 export function SplitHeading({
   children,
@@ -27,47 +37,46 @@ export function SplitHeading({
   delay = 0,
 }: SplitHeadingProps) {
   const ref = useRef<HTMLElement>(null);
+  const hasPlayed = useRef(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || prefersReducedMotion()) return;
 
-    let split: SplitText | null = null;
-    let tween: gsap.core.Tween | null = null;
+    const split = SplitText.create(el, {
+      type: "lines",
+      linesClass: "split-line",
+      mask: "lines",
+      autoSplit: true,
+      onSplit: (self) => {
+        // A re-split (rotation, font swap) must not replay the reveal — it
+        // would look like the page reloading. Only the first split animates.
+        if (hasPlayed.current) {
+          gsap.set(self.lines, { yPercent: 0, opacity: 1 });
+          return undefined;
+        }
+        hasPlayed.current = true;
 
-    // Wait for webfonts so lines are split at their final measured widths.
-    const run = () => {
-      split = new SplitText(el, {
-        type: "lines",
-        linesClass: "split-line",
-        mask: "lines",
-      });
-
-      tween = gsap.from(split.lines, {
-        yPercent: 110,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 0.9,
-        delay,
-        ease: "expo.out",
-        ...(immediate
-          ? {}
-          : { scrollTrigger: { trigger: el, start: "top 82%", once: true } }),
-      });
-    };
-
-    let cancelled = false;
-    document.fonts.ready.then(() => {
-      if (cancelled) return;
-      run();
-      ScrollTrigger.refresh();
+        return gsap.from(self.lines, {
+          yPercent: 110,
+          opacity: 0,
+          stagger: 0.08,
+          duration: 0.9,
+          delay,
+          ease: "expo.out",
+          ...(immediate
+            ? {}
+            : { scrollTrigger: { trigger: el, start: "top 82%", once: true } }),
+        });
+      },
     });
 
+    // Line boxes change height as they split; re-measure dependent triggers.
+    const id = window.setTimeout(() => ScrollTrigger.refresh(), 120);
+
     return () => {
-      cancelled = true;
-      tween?.scrollTrigger?.kill();
-      tween?.kill();
-      split?.revert();
+      window.clearTimeout(id);
+      split.revert();
     };
   }, [immediate, delay]);
 
