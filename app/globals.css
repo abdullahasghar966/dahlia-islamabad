@@ -44,7 +44,11 @@
 
   /* ---- fluid type scale ---- */
   --text-mega: clamp(4rem, 22vw, 20rem);
-  --text-h1: clamp(2.5rem, 6vw, 5.5rem);
+  /* Floor lowered from 2.5rem. Below ~490px the clamp pins to its minimum, and
+     at 40px a long headline ("Home to a café & a plant nursery.") took three
+     lines and pushed the hero's CTAs off the first screen. Same curve above
+     that width, so desktop is untouched — only the small-screen floor moves. */
+  --text-h1: clamp(1.85rem, 6vw, 5.5rem);
   --text-h2: clamp(2rem, 4vw, 3.5rem);
   --text-h3: clamp(1.5rem, 2.5vw, 2.25rem);
   --text-lead: clamp(1.05rem, 1.4vw, 1.35rem);
