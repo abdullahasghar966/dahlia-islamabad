@@ -49,7 +49,10 @@ export function CategoryTabs({
     <nav
       aria-label="Menu categories"
       // No `transition` on `top` here — :root animates --sticky-top instead.
-      className="sticky top-[var(--sticky-top)] z-40 -mx-gutter border-y border-current/10 bg-[color-mix(in_srgb,var(--page-bg)_92%,transparent)] backdrop-blur-xl"
+      // And no negative margins: this nav sits directly in <main>, already
+      // full-bleed. `-mx-gutter` assumed a padded parent and instead pushed the
+      // document 16px wider than the viewport on phones.
+      className="sticky top-[var(--sticky-top)] z-40 border-y border-current/10 bg-[color-mix(in_srgb,var(--page-bg)_92%,transparent)] backdrop-blur-xl"
     >
       <ul
         ref={list}

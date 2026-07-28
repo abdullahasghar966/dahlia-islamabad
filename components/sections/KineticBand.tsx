@@ -101,7 +101,15 @@ export function KineticBand() {
       data-bg={stop.bg}
       data-fg={stop.fg}
       aria-labelledby="kinetic-heading"
-      className={cn("relative", reduced ? "py-[var(--spacing-section)]" : "h-[300vh]")}
+      className={cn(
+        "relative",
+        // The scrub maps progress to section height, so the band's height IS the
+        // scroll cost of the three-word cycle. A full viewport per word is right
+        // on desktop; on a phone (most traffic, per the spec) three whole swipes
+        // for one moment is a toll booth — 60vh per word keeps the effect and
+        // nearly halves the trip.
+        reduced ? "py-[var(--spacing-section)]" : "h-[180vh] md:h-[300vh]",
+      )}
     >
       {/* Screen readers get the statement once, as plain prose. */}
       <h2 id="kinetic-heading" className="sr-only">

@@ -60,7 +60,7 @@ export default async function PlantPage({ params }: { params: Promise<{ slug: st
         <nav aria-label="Breadcrumb" className="mb-10">
           <ol className="flex flex-wrap items-center gap-1 text-small opacity-65">
             <li>
-              <Link href="/nursery" className="link-draw">
+              <Link href="/nursery" className="link-draw inline-flex min-h-11 items-center">
                 Nursery
               </Link>
             </li>

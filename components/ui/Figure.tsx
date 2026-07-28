@@ -101,9 +101,11 @@ export function Figure({
           {label}
         </span>
       ) : null}
+      {/* 0.6rem measured 9.6px — under any readable floor. Chip is temporary
+          (gone once real photography lands) but readable while it exists. */}
       <span
         aria-hidden
-        className="eyebrow absolute top-3 right-3 rounded-pill border border-current/30 px-2 py-0.5 text-[0.6rem] opacity-50"
+        className="eyebrow absolute top-3 right-3 rounded-pill border border-current/30 px-2 py-0.5 text-[0.72rem] opacity-70"
       >
         Photo soon
       </span>
