@@ -1,0 +1,24 @@
+DAHLIA SPEC — UPDATED FILES ONLY
+=================================
+These 8 files were updated after transcribing Dahlia's real menu, café policy,
+and bank discounts from the Instagram highlights. Copy them into your existing
+"Dahlia-Website-Spec" folder on the GPU laptop and OVERWRITE the older versions.
+
+Replace these 8 (everything else in the folder is unchanged — keep as-is):
+
+  00-README-START-HERE.md              (index now lists 02b)
+  02-BRAND-DAHLIA.md                   (menu section now points to verified 02b)
+  02b-VERIFIED-MENU-POLICY-DISCOUNTS.md  <-- NEW FILE (the real menu = source of truth)
+  06-HOMEPAGE-SECTIONS.md              (signature carousel uses real dishes/prices)
+  08-CONTENT-MODEL-SANITY.md           (real menu JSON seed in §6 + discount schema)
+  11-INNER-PAGES.md                    (menu page + reserve form use real 8+ policy)
+  12-ASSETS-CHECKLIST.md               (menu marked verified; only photos outstanding)
+  15-OPUS5-BUILD-PROMPT.md             (tells Opus 5 to seed from 02b verbatim)
+
+Unchanged (already on the GPU laptop, do NOT need re-copying):
+  01, 03, 04, 05, 07, 09, 10, 13, 14, 16
+
+Key facts now verified: full menu (10 categories, ~55 dishes + 17 drinks + 7 add-ons,
+exact PKR prices, excl. GST, 10% service on tables of 10+); café policy (walk-in,
+only 8+ reservable, 15-min hold); HBL + Allied Bank discounts; real DAHLIA wordmark
++ arched-greenhouse-window logo motif.

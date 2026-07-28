@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dahlia-dev",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "scripts\\dev.cmd"],
+      "port": 3000
+    },
+    {
+      "name": "dahlia-prod",
+      "runtimeExecutable": "cmd.exe",
+      "runtimeArgs": ["/c", "scripts\\start.cmd"],
+      "port": 3000
+    }
+  ]
+}
